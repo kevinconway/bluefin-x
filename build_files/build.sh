@@ -2,23 +2,22 @@
 
 set -ouex pipefail
 
-### Install packages
+# Install ProtonVPN
+"$(dirname "$0")/proton_scripts/install_vpn.sh"
 
-# Packages can be installed from any enabled yum repo on the image.
-# RPMfusion repos are available by default in ublue main images
-# List of rpmfusion packages can be found here:
-# https://mirrors.rpmfusion.org/mirrorlist?path=free/fedora/updates/39/x86_64/repoview/index.html&protocol=https&redirect=1
+# Install Proton Bridge
+"$(dirname "$0")/proton_scripts/install_bridge.sh"
 
-# this installs a package from fedora repos
-dnf5 install -y tmux 
+# Install Windsurf repo
+## See https://windsurf.com/download/editor for updates
+rpm --import https://windsurf-stable.codeiumdata.com/wVxQEIWkwPUEAGf3/yum/RPM-GPG-KEY-windsurf
+echo -e "[windsurf]
+name=Windsurf Repository
+baseurl=https://windsurf-stable.codeiumdata.com/wVxQEIWkwPUEAGf3/yum/repo/
+enabled=1
+autorefresh=1
+gpgcheck=1
+gpgkey=https://windsurf-stable.codeiumdata.com/wVxQEIWkwPUEAGf3/yum/RPM-GPG-KEY-windsurf" | tee /etc/yum.repos.d/windsurf.repo >/dev/null
+dnf5 check-update --refresh windsurf && dnf5 install -y windsurf
 
-# Use a COPR Example:
-#
-# dnf5 -y copr enable ublue-os/staging
-# dnf5 -y install package
-# Disable COPRs so they don't end up enabled on the final image:
-# dnf5 -y copr disable ublue-os/staging
-
-#### Example for enabling a System Unit File
-
-systemctl enable podman.socket
+dnf clean all

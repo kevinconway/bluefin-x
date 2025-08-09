@@ -21,10 +21,10 @@ on:
     paths:
       - './disk_config/disk.toml'
       - './disk_config/iso.toml'
-      - './.github/workflows/build-disk.yml'
+      - './.github/workflows/build-disk-nvidia.yml'
 
 env:
-  IMAGE_NAME: ${{ github.event.repository.name }} # output of build.yml, keep in sync
+  IMAGE_NAME: ${{ github.event.repository.name }}-nvidia # output of build-nvidia.yml, keep in sync
   IMAGE_REGISTRY: "ghcr.io/${{ github.repository_owner }}"  # do not edit
   DEFAULT_TAG: "latest"
   BIB_IMAGE: "quay.io/centos-bootc/bootc-image-builder:latest" # "ghcr.io/lorbuschris/bootc-image-builder:20250608" - see https://github.com/osbuild/bootc-image-builder/pull/954
