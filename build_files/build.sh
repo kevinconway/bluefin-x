@@ -5,9 +5,6 @@ set -ouex pipefail
 # Install ProtonVPN
 "$(dirname "$0")/proton_scripts/install_vpn.sh"
 
-# Install Proton Bridge
-"$(dirname "$0")/proton_scripts/install_bridge.sh"
-
 # Install Windsurf repo
 ## See https://windsurf.com/download/editor for updates
 rpm --import https://windsurf-stable.codeiumdata.com/wVxQEIWkwPUEAGf3/yum/RPM-GPG-KEY-windsurf
