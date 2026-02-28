@@ -14,10 +14,10 @@ RUN --mount=type=bind,from=ctx,source=/,target=/ctx \
     --mount=type=cache,dst=/var/log \
     --mount=type=tmpfs,dst=/tmp \
     /ctx/build.sh && \
-    rpm-ostree kargs \
-      --append-if-missing=amd_iommu=off \
-      --append-if-missing=amdgpu.gttsize=126976 \
-      --append-if-missing=ttm.pages_limit=32505856 && \
+    mkdir -p /usr/lib/bootc/kargs.d && \
+    printf '%s\n' \
+      'kargs = ["amd_iommu=off", "amdgpu.gttsize=126976", "ttm.pages_limit=32505856"]' \
+      > /usr/lib/bootc/kargs.d/50-strix-halo.toml && \
     ostree container commit
 
 ### LINTING
