@@ -8,11 +8,13 @@ project is for my personal use.
 
 ## Image Variants
 
-This repository builds two image variants:
+This repository builds three image variants:
 
 1. **Standard** (`bluefin-x`) - Based on `ghcr.io/ublue-os/bluefin-dx:gts`
 2. **NVIDIA** (`bluefin-x-nvidia`) - Based on
    `ghcr.io/ublue-os/bluefin-dx-nvidia:gts` with optimized NVIDIA driver support
+3. **Strix** (`bluefin-x-strix`) - Based on `ghcr.io/ublue-os/bluefin-dx:gts`
+   with AMD Strix Halo boot parameter tuning
 
 ## Custom Components
 
@@ -22,7 +24,8 @@ All image variants extend Bluefin with the same customizations. See the
 ## How to Use
 
 Use the `bluefin-x` image for most systems. Use `bluefin-x-nvidia` for systems
-with NVIDIA graphics hardware.
+with NVIDIA graphics hardware. Use `bluefin-x-strix` for AMD Strix Halo
+systems.
 
 These instructions assume that you're already using a bootc system. This would
 mean something like installing the mainline bluefin image first and then
@@ -40,6 +43,9 @@ sudo bootc switch ghcr.io/kevinconway/bluefin-x
 
 # For systems with NVIDIA graphics
 sudo bootc switch ghcr.io/kevinconway/bluefin-x-nvidia
+
+# For AMD Strix Halo systems
+sudo bootc switch ghcr.io/kevinconway/bluefin-x-strix
 ```
 
 After rebooting, you'll be running this customized image.
@@ -57,6 +63,9 @@ sudo bootc switch ghcr.io/kevinconway/bluefin-x
 
 # For systems with NVIDIA graphics
 sudo bootc switch ghcr.io/kevinconway/bluefin-x-nvidia
+
+# For AMD Strix Halo systems
+sudo bootc switch ghcr.io/kevinconway/bluefin-x-strix
 ```
 
 And reboot to apply the updates.
@@ -77,19 +86,26 @@ And reboot to apply the updates.
   - `.github/workflows/build-disk-nvidia.yml` - GitHub Actions workflow for
     building NVIDIA disk images
 
+- **Strix Variant:**
+  - `Containerfile.strix` - Configuration file for the AMD Strix Halo image
+  - `.github/workflows/build-strix.yml` - GitHub Actions workflow for building
+    the Strix image
+  - `.github/workflows/build-disk-strix.yml` - GitHub Actions workflow for
+    building Strix disk images
+
 - **Shared Components:**
-  - `build_files/build.sh` - Script that runs during build to customize both
+  - `build_files/build.sh` - Script that runs during build to customize all
     image variants
   - `Justfile` - Contains utility commands for building and testing locally
   - `disk_config/` - Configuration for disk image generation
 
 ## Making Changes
 
-1. Modify `build_files/build.sh` to add or remove packages (affects both
+1. Modify `build_files/build.sh` to add or remove packages (affects all
    variants)
 2. For variant-specific changes, edit the appropriate Containerfile
 3. Commit changes to GitHub repository
-4. GitHub Actions will automatically build both image variants
+4. GitHub Actions will automatically build all image variants
 5. Switch to the new image as described above
 
 ## Local Testing
