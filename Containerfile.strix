@@ -16,9 +16,12 @@ RUN --mount=type=bind,from=ctx,source=/,target=/ctx \
     /ctx/build.sh && \
     mkdir -p /usr/lib/bootc/kargs.d && \
     printf '%s\n' \
-      'kargs = ["amd_iommu=off", "amdgpu.gttsize=126976", "ttm.pages_limit=32505856"]' \
+      'kargs = ["iommu=pt", "amdgpu.gttsize=126976", "ttm.pages_limit=32505856", "amdgpu.cwsr_enabled=0"]' \
       > /usr/lib/bootc/kargs.d/50-strix-halo.toml && \
     ostree container commit
+
+# The above boot args are intended to optimize for Strix Halo and are based on https://github.com/kyuz0/amd-strix-halo-toolboxes?tab=readme-ov-file#host-configuration
+# The amdgpu.cwsr_enabled=0 flag is intended to work around a firmware bug: https://community.frame.work/t/attn-critical-bugs-in-amdgpu-driver-included-with-kernel-6-18-x-6-19-x/79221/7
 
 ### LINTING
 ## Verify final image and contents are correct.
