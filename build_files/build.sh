@@ -17,4 +17,7 @@ gpgcheck=1
 gpgkey=https://windsurf-stable.codeiumdata.com/wVxQEIWkwPUEAGf3/yum/RPM-GPG-KEY-windsurf" | tee /etc/yum.repos.d/windsurf.repo >/dev/null
 dnf5 check-update --refresh windsurf && dnf5 install -y windsurf
 
+# Install .NET SDK
+dnf5 install -y dotnet-sdk-10.0
+
 dnf clean all
