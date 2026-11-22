@@ -18,3 +18,4 @@ set -ouex pipefail
 dnf5 install -y dotnet-sdk-10.0
 
 dnf clean all
+rm -rf /var/lib/dnf/repos

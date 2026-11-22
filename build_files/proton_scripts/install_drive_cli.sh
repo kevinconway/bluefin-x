@@ -13,7 +13,7 @@ trap 'rm -rf "$TMP"' EXIT
 wget -O "${TMP}/proton-drive" \
     "https://proton.me/download/drive/cli/${DRIVE_CLI_VER}/linux-x64/proton-drive"
 echo "${DRIVE_CLI_SHA512}  ${TMP}/proton-drive" | sha512sum --check
-install -Dm755 "${TMP}/proton-drive" /usr/local/bin/proton-drive
+install -Dm755 "${TMP}/proton-drive" /usr/bin/proton-drive
 
 # libsecret is a dependency of the CLI
 dnf5 install -y libsecret
