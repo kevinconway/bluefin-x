@@ -11,6 +11,9 @@ set -ouex pipefail
 # Install Proton Mail/Calendar desktop app
 "$(dirname "$0")/proton_scripts/install_mail.sh"
 
+# Install Proton Drive CLI
+"$(dirname "$0")/proton_scripts/install_drive_cli.sh"
+
 # Install .NET SDK
 dnf5 install -y dotnet-sdk-10.0
 
