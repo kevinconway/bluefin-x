@@ -311,13 +311,6 @@ lint:
     # Run shellcheck on all Bash scripts
     /usr/bin/find . -iname "*.sh" -type f -exec shellcheck "{}" ';'
 
-# Updates ProtonVPN and Proton Bridge scripts with latest versions
-update-proton:
-    #!/usr/bin/env bash
-    set -eoux pipefail
-    ./build_files/proton_scripts/update_vpn.sh
-    ./build_files/proton_scripts/update_bridge.sh
-
 # Runs shfmt on all Bash scripts
 format:
     #!/usr/bin/env bash
