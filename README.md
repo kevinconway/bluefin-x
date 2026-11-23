@@ -10,10 +10,11 @@ project is for my personal use.
 
 This repository builds three image variants:
 
-1. **Standard** (`bluefin-x`) - Based on `ghcr.io/ublue-os/bluefin-dx:gts`
-2. **NVIDIA** (`bluefin-x-nvidia`) - Based on
-   `ghcr.io/ublue-os/bluefin-dx-nvidia:gts` with optimized NVIDIA driver support
-3. **Strix** (`bluefin-x-strix`) - Based on `ghcr.io/ublue-os/bluefin-dx:gts`
+1. **Standard** (`bluefin-x`) - Based on `ghcr.io/ublue-os/bluefin-dx:stable`
+2. **NVIDIA** (`bluefin-x-nvidia`) - Based on `ghcr.io/ublue-os/bluefin-dx:stable`
+   with the NVIDIA open kernel driver layered in from
+   `ghcr.io/ublue-os/akmods-nvidia-open:coreos-stable-45`
+3. **Strix** (`bluefin-x-strix`) - Based on `ghcr.io/ublue-os/bluefin-dx:stable`
    with AMD Strix Halo boot parameter tuning
 
 ## Custom Components
