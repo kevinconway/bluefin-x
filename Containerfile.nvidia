@@ -2,17 +2,23 @@
 FROM scratch AS ctx
 COPY build_files /
 
+# NVIDIA driver akmods (nvidia-open kernel modules).
+# See: https://github.com/ublue-os/image-template#adding-nvidia-drivers
+FROM ghcr.io/ublue-os/akmods-nvidia-open:coreos-stable-45 AS nvidia-akmods
+
 # Base Image
-FROM ghcr.io/ublue-os/bluefin-dx-nvidia:stable
+FROM ghcr.io/ublue-os/bluefin-dx:stable
 
 ### MODIFICATIONS
 ## make modifications desired in your image and install packages by modifying the build.sh script
-## the following RUN directive does all the things required to run "build.sh" as recommended.
+## the following RUN directive does all the things required to run "build.sh" as recommended,
+## plus the akmods RPM mount that makes build.sh install the NVIDIA drivers.
 
 RUN --mount=type=bind,from=ctx,source=/,target=/ctx \
     --mount=type=cache,dst=/var/cache \
     --mount=type=cache,dst=/var/log \
     --mount=type=tmpfs,dst=/tmp \
+    --mount=type=bind,from=nvidia-akmods,source=/rpms,target=/tmp/akmods-rpms \
     /ctx/build.sh && \
     ostree container commit
 
